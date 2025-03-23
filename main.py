@@ -1,9 +1,17 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 import requests
 from bs4 import BeautifulSoup
 import re
 
 app = Flask(__name__)
+
+# Enable CORS for all domains for development/testing
+# For security in production, restrict to your domain (see comment below)
+CORS(app)
+
+# Uncomment below for PRODUCTION (only allow your frontend domain)
+CORS(app, resources={r"/api/*": {"origins": "http://alldownloader01.free.nf"}})
 
 @app.route('/api/threadster')
 def fetch_thread_data():
